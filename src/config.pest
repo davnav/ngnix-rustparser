@@ -1,0 +1,35 @@
+
+//number will be a continuation of digits
+NUMBER = {
+    ASCII_DIGIT+
+}
+
+WHITE_SPACE = _{ ( "\t" | " " | "\r") | NEWLINE  }
+
+FIELD = {
+    (ASCII_ALPHA | "." | "_")+
+
+}
+
+VALUE = {
+    (ASCII_ALPHANUMERIC | "." | "_" | "/")+
+}
+
+EXPR = {
+    FIELD ~ WHITE_SPACE* ~ VALUE ~ WHITE_SPACE* ~ ";"
+}
+
+BLOCK_NAME = {
+    (ASCII_ALPHA)+
+}
+
+BLOCK = {
+    WHITE_SPACE* ~
+    BLOCK_NAME ~
+    WHITE_SPACE* ~
+    "{" ~
+    WHITE_SPACE*~
+    (EXPR | BLOCK)+ ~
+    WHITE_SPACE* ~
+    "}"
+}
