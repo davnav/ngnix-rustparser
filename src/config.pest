@@ -3,26 +3,33 @@
 NUMBER = {
     ASCII_DIGIT+
 }
-
+//white space and new line are ignored
 WHITE_SPACE = _{ ( "\t" | " " | "\r") | NEWLINE  }
 
+// left part of an expression is called field
 FIELD = {
     (ASCII_ALPHA | "." | "_")+
 
 }
-
+//right part of the expression is called value
 VALUE = {
     (ASCII_ALPHANUMERIC | "." | "_" | "/")+
 }
+
+//expression is made up field and value
+//example:
+//pid        logs/nginx.pid;
 
 EXPR = {
     FIELD ~ WHITE_SPACE* ~ VALUE ~ WHITE_SPACE* ~ ";"
 }
 
+// every block should have a block name
 BLOCK_NAME = {
     (ASCII_ALPHA)+
 }
 
+//block is made out of expr or another block
 BLOCK = {
     WHITE_SPACE* ~
     BLOCK_NAME ~
